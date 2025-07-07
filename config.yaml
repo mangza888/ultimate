@@ -1,0 +1,241 @@
+# config.yaml - Ultimate Auto Trading Configuration
+# ระบบเทรดอัตโนมัติครบวงจร (Python 3.9 + GPU 1)
+
+# ===== SYSTEM SETTINGS =====
+system:
+  name: "Ultimate Auto Trading System"
+  version: "1.0.0"
+  python_version: "3.9"
+  initial_capital: 10000
+  gpu_enabled: true
+  
+# ===== GPU SETTINGS =====
+gpu:
+  enabled: true
+  memory_fraction: 0.7  # เพิ่มเป็น 70% สำหรับ Python 3.9
+  device: "cuda"
+  gpu_id: 1             # ใช้ GPU ตัวที่ 1
+  cuda_device: "cuda:1" # ระบุชัดเจน
+
+# ===== TRADING TARGETS =====
+targets:
+  ai_win_rate: 90       # AI ต้องได้ 90% win rate
+  backtest_return: 85   # Backtest ต้องได้ 85% return
+  paper_trade_return: 100  # Paper trade ต้องได้ 100% return
+  
+# ===== CAPITAL SETTINGS =====
+capital:
+  initial: 10000        # เงินเริ่มต้น $10,000
+  max_position_size: 0.25  # ใช้เงินสูงสุด 25% per position
+  min_confidence: 0.6   # ความเชื่อมั่นขั้นต่ำ 60%
+
+# ===== TRADING SYMBOLS =====
+symbols:
+  - "BTC"
+  - "ETH"
+  - "BNB"
+  - "LTC"
+
+# ===== AI MODEL SETTINGS =====
+ai_models:
+  primary: "xgboost"    # โมเดลหลัก
+  backup: "random_forest"  # โมเดลสำรอง
+  
+  # Traditional ML Models
+  traditional_ml:
+    random_forest:
+      enabled: true
+      params:
+        n_estimators: 100
+        max_depth: 10
+        random_state: 42
+    
+    gradient_boosting:
+      enabled: true
+      params:
+        n_estimators: 100
+        max_depth: 6
+        random_state: 42
+    
+    logistic_regression:
+      enabled: true
+      params:
+        random_state: 42
+        max_iter: 1000
+    
+    svm:
+      enabled: true
+      params:
+        probability: true
+        random_state: 42
+
+  # Deep Learning Models
+  deep_learning:
+    mlp:
+      enabled: true
+      architecture:
+        input_dim: 39
+        hidden_dims: [128, 64, 32]
+        output_dim: 3
+        dropout: 0.2
+      training:
+        learning_rate: 0.001
+        epochs: 5
+    
+    lstm:
+      enabled: true
+      architecture:
+        input_dim: 39
+        hidden_dim: 64
+        num_layers: 2
+        output_dim: 3
+        dropout: 0.2
+      training:
+        learning_rate: 0.001
+        epochs: 5
+        
+    transformer:
+      enabled: true
+      architecture:
+        input_dim: 39
+        d_model: 64
+        nhead: 4
+        num_layers: 2
+        output_dim: 3
+        dropout: 0.1
+      training:
+        learning_rate: 0.001
+        epochs: 5
+
+  # Reinforcement Learning (Mock)
+  reinforcement_learning:
+    mock_dqn:
+      enabled: true
+    mock_ppo:
+      enabled: true
+  
+  # XGBoost settings (Python 3.9 optimized)
+  xgboost:
+    n_estimators: 500
+    max_depth: 8
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    tree_method: "gpu_hist"  # ใช้ GPU
+    gpu_id: 1               # ระบุ GPU ID = 1
+    
+  # Random Forest settings  
+  random_forest:
+    n_estimators: 200
+    max_depth: 15
+    min_samples_split: 5
+    min_samples_leaf: 2
+    n_jobs: -1
+
+# ===== TRAINING SETTINGS =====
+training:
+  max_iterations: 50     # เทรนสูงสุด 50 รอบ
+  samples_per_symbol: 1000  # ข้อมูลต่อ symbol
+  validation_split: 0.2  # แบ่งข้อมูล validation 20%
+  early_stopping: true   # หยุดเร็วเมื่อได้เป้าหมาย
+  batch_size_multiplier: 1.5  # เพิ่ม batch size สำหรับ Python 3.9
+  
+# ===== BACKTEST SETTINGS =====
+backtest:
+  duration_days: 365     # ทดสอบย้อนหลัง 1 ปี
+  transaction_cost: 0.001  # ค่าธรรมเนียม 0.1%
+  min_trades: 10         # การเทรดขั้นต่ำ
+  parallel_processing: true  # เปิดใช้ parallel สำหรับ Python 3.9
+  
+# ===== PAPER TRADE SETTINGS =====
+paper_trade:
+  timeframe: "1m"        # 1 นาที
+  duration_minutes: 60   # ทดสอบ 1 ชั่วโมง  
+  update_interval: 5     # อัพเดททุก 5 วินาที
+  min_trades_per_hour: 5  # เทรดขั้นต่ำต่อชั่วโมง
+  async_processing: true  # เปิดใช้ async สำหรับ Python 3.9
+  
+# ===== TECHNICAL INDICATORS =====
+indicators:
+  moving_averages: [5, 10, 20, 50]
+  rsi_period: 14
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bollinger_period: 20
+  bollinger_std: 2
+  volatility_windows: [5, 10, 20]
+  momentum_periods: [1, 5, 10, 20]
+
+# ===== DATA SETTINGS =====
+data:
+  min_history_periods: 60  # ข้อมูลขั้นต่ำ 60 periods
+  max_history_periods: 200  # ข้อมูลสูงสุด 200 periods
+  feature_count: 25        # เพิ่มจำนวน features สำหรับ Python 3.9
+  vectorized_operations: true  # เปิดใช้ vectorization
+  
+# ===== LOGGING SETTINGS =====
+logging:
+  level: "INFO"          # DEBUG, INFO, WARNING, ERROR
+  file: "trading_log.txt"
+  max_size_mb: 15        # เพิ่มขนาด log
+  backup_count: 7        # เพิ่มจำนวน backup
+  console_output: true
+  structured_logging: true  # เปิดใช้ structured logging
+
+# ===== OUTPUT SETTINGS =====
+output:
+  save_models: true
+  save_results: true
+  save_plots: true
+  results_dir: "results"
+  models_dir: "models"
+  logs_dir: "logs"
+  compression: true      # เปิดใช้ compression สำหรับ Python 3.9
+  
+# ===== RETRY SETTINGS =====
+retry:
+  max_training_attempts: 12   # เพิ่มเป็น 12 ครั้ง
+  max_backtest_attempts: 6    # เพิ่มเป็น 6 ครั้ง
+  max_paper_trade_attempts: 4  # เพิ่มเป็น 4 ครั้ง
+  delay_between_attempts: 3   # ลดเหลือ 3 วินาที (Python 3.9 เร็วกว่า)
+  exponential_backoff: true   # เปิดใช้ exponential backoff
+
+# ===== ALERT SETTINGS =====
+alerts:
+  enabled: true
+  target_achieved: true     # แจ้งเตือนเมื่อได้เป้าหมาย
+  training_failed: true     # แจ้งเตือนเมื่อเทรนไม่สำเร็จ
+  backtest_failed: true     # แจ้งเตือนเมื่อ backtest ไม่ผ่าน
+  performance_monitoring: true  # เปิดใช้ performance monitoring
+
+# ===== PERFORMANCE SETTINGS (Python 3.9 specific) =====
+performance:
+  multiprocessing:
+    enabled: true
+    max_workers: 8          # เพิ่มจำนวน workers
+    
+  memory_optimization:
+    enabled: true
+    garbage_collection: "generational"  # Python 3.9 GC
+    
+  async_processing:
+    enabled: true
+    max_concurrent_tasks: 20  # เพิ่มจำนวน concurrent tasks
+
+# ===== PAPER TRADE CONFIG =====
+paper_trade_config:
+  duration_minutes: 60
+  update_interval: 5
+  initial_capital: 10000
+  symbols: ["BTC", "ETH"]
+
+# ===== DIRECTORIES =====
+directories:
+  data: "data"
+  models: "models" 
+  results: "results"
+  logs: "logs"
+
+api:
+  market_data_url: "https://api.binance.com/api/v3/klines"

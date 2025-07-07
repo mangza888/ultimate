@@ -1,0 +1,115 @@
+# config.yaml - Updated for Python 3.9 + GPU 1
+
+system:
+  name: "Ultimate Auto Trading System"
+  version: "1.0.0"
+  python_version: "3.9"
+  
+gpu:
+  enabled: true
+  memory_fraction: 0.7
+  device: "cuda"
+  gpu_id: 1
+  cuda_device: "cuda:0"
+
+targets:
+  ai_win_rate: 90
+  backtest_return: 85
+  paper_trade_return: 100
+  
+capital:
+  initial: 10000
+  max_position_size: 0.25
+  min_confidence: 0.6
+
+symbols:
+  - "BTC"
+  - "ETH"
+  - "BNB"
+  - "LTC"
+
+ai_models:
+  primary: "xgboost"
+  backup: "random_forest"
+
+training:
+  max_iterations: 50
+  samples_per_symbol: 1000
+  validation_split: 0.2
+  early_stopping: true
+  batch_size_multiplier: 1.5
+
+backtest:
+  duration_days: 365
+  transaction_cost: 0.001
+  min_trades: 10
+  parallel_processing: true
+  
+paper_trade:
+  timeframe: "1m"
+  duration_minutes: 60
+  update_interval: 5
+  min_trades_per_hour: 5
+  async_processing: true
+  
+indicators:
+  moving_averages: [5, 10, 20, 50]
+  rsi_period: 14
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bollinger_period: 20
+  bollinger_std: 2
+  volatility_windows: [5, 10, 20]
+  momentum_periods: [1, 5, 10, 20]
+
+data:
+  min_history_periods: 60
+  max_history_periods: 200
+  feature_count: 25
+  vectorized_operations: true
+  
+logging:
+  level: "INFO"
+  file: "trading_log.txt"
+  max_size_mb: 15
+  backup_count: 7
+  console_output: true
+  structured_logging: true
+
+output:
+  save_models: true
+  save_results: true
+  save_plots: true
+  results_dir: "results"
+  models_dir: "models"
+  logs_dir: "logs"
+  compression: true
+  
+retry:
+  max_training_attempts: 12
+  max_backtest_attempts: 6
+  max_paper_trade_attempts: 4
+  delay_between_attempts: 3
+  exponential_backoff: true
+
+alerts:
+  enabled: true
+  target_achieved: true
+  training_failed: true
+  backtest_failed: true
+  performance_monitoring: true
+
+performance:
+  multiprocessing:
+    enabled: true
+    max_workers: 10
+  async_processing:
+    enabled: true
+    max_concurrent_tasks: 15
+  memory_optimization:
+    enabled: true
+    garbage_collection: "generational"
+  jit_compilation:
+    numba_enabled: true
+    cache_enabled: true

@@ -1,0 +1,21 @@
+Ultimate Trading System Environment Info
+========================================
+Setup Date: Sun Jul  6 10:21:54 +07 2025
+Python Version: Python 3.9.23
+GPU Device: CUDA:1
+Virtual Environment: venv/
+Activation Script: activate_trading_env.sh
+
+GPU Information:
+NVIDIA GeForce RTX 3070 Ti, 8192
+
+Installed Packages:
+lightgbm                  4.2.0
+numpy                     1.23.5
+pandas                    2.0.3
+pandas_ta                 0.3.14b0
+pytorch-lightning         2.1.4
+torch                     2.7.1
+torchmetrics              1.7.4
+torchvision               0.15.2+cu118
+xgboost                   2.0.3

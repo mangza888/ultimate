@@ -1,0 +1,103 @@
+# config/ai_models.yaml - Updated for Python 3.9 + GPU 1
+
+ai_general:
+  python_version: "3.9"
+  gpu_memory_fraction: 0.7
+  device: "cuda:0"
+  random_seed: 42
+  early_stopping_patience: 12
+  validation_split: 0.2
+  mixed_precision: true
+
+traditional_ml:
+  xgboost:
+    enabled: true
+    priority: 1
+    params:
+      n_estimators: 600
+      max_depth: 10
+      learning_rate: 0.08
+      subsample: 0.85
+      colsample_bytree: 0.85
+      tree_method: "hist"
+      device: "cuda:0"
+      predictor: "gpu_predictor"
+      random_state: 42
+      
+  lightgbm:
+    enabled: true
+    priority: 2
+    params:
+      n_estimators: 600
+      max_depth: 10
+      learning_rate: 0.08
+      subsample: 0.85
+      colsample_bytree: 0.85
+      device: "gpu"
+      gpu_platform_id: 0
+      gpu_device_id: 0
+      objective: "multiclass"
+      num_class: 3
+      verbosity: -1
+      random_state: 42
+      
+  random_forest:
+    enabled: true
+    priority: 3
+    params:
+      n_estimators: 300
+      max_depth: 18
+      min_samples_split: 4
+      min_samples_leaf: 1
+      n_jobs: -1
+      random_state: 42
+
+pytorch_lightning:
+  enabled: true
+  trainer:
+    max_epochs: 120
+    devices: [0]
+    accelerator: "gpu"
+    precision: "16-mixed"
+    accumulate_grad_batches: 1
+    gradient_clip_val: 1.2
+    strategy: "auto"
+    enable_progress_bar: true
+    enable_model_summary: true
+
+reinforcement_learning:
+  ppo:
+    enabled: true
+    params:
+      device: "cuda:0"
+  sac:
+    enabled: true
+    params:
+      device: "cuda:0"
+  a2c:
+    enabled: true
+    params:
+      device: "cuda:0"
+  ddpg:
+    enabled: true
+    params:
+      device: "cuda:0"
+
+distributed_rl:
+  enabled: true
+  ray_config:
+    num_workers: 6
+    num_gpus: 1
+    gpu_id: 0
+
+backtesting:
+  frameworks:
+    vectorbt:
+      enabled: true
+      priority: 1
+    backtrader:
+      enabled: true
+      priority: 2
+    zipline:
+      enabled: true
+      priority: 3

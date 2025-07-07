@@ -1,0 +1,32 @@
+# Enhanced Configuration
+system:
+  name: "Enhanced Ultimate Auto Trading System"
+  version: "2.0.0"
+  enhanced_features: true
+
+gpu:
+  enabled: true
+  memory_fraction: 0.7
+
+targets:
+  ai_win_rate: 90
+  backtest_return: 85
+  paper_trade_return: 100
+
+data:
+  multi_timeframe: true
+  timeframes: ["1m", "5m", "15m", "1h"]
+  symbols: ["BTC/USDT", "ETH/USDT", "LTC/USDT"]
+  enhanced_features: true
+
+hyperparameter_optimization:
+  enabled: true
+  method: "optuna" 
+  n_trials: 50
+  models_to_optimize: ["xgboost", "lightgbm"]
+
+advanced_models:
+  transformer:
+    enabled: true
+  ensemble:
+    enabled: true
